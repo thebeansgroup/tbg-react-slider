@@ -1,4 +1,4 @@
-class Transition {
+export class Base {
   start() { return {}; }
   end() { return {}; }
   prevStart() { return {}; }
@@ -8,7 +8,7 @@ class Transition {
 
 
 // Basic Fade transition
-class Fade extends Transition {
+export class Fade extends Base {
   start() {
     return { opacity: '0' };
   }
@@ -21,7 +21,7 @@ class Fade extends Transition {
 }
 
 // Basic Slide Transition
-class Slide extends Transition {
+export class Slide extends Base {
   start(dir, view) {
     return { transform: `translateX(${view.width * dir}px)` };
   }
@@ -40,7 +40,7 @@ class Slide extends Transition {
 }
 
 // Slide Down Transition
-class SlideDown extends Transition {
+export class SlideDown extends Base {
   start(dir, view) {
     return { transform: `translateY(${view.height * (dir * -1)}px)` };
   }
@@ -58,11 +58,4 @@ class SlideDown extends Transition {
       transition: `transform ${time}s`,
     };
   }
-}
-
-export default {
-  Transition,
-  Fade,
-  Slide,
-  SlideDown,
 }
