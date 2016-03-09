@@ -1,0 +1,25 @@
+{
+  "name": "tbg-react-slider",
+  "version": "1.0.0",
+  "description": "React slider component",
+  "main": "lib/index.js",
+  "scripts": {
+    "prepublish": "babel ./src/ -d ./lib/"
+  },
+  "keywords": [
+    "react"
+  ],
+  "author": "Sam Ternent",
+  "license": "ISC",
+  "peerDependencies": {
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.6.5",
+    "babel-core": "^6.7.0",
+    "babel-preset-react": "^6.0.14",
+    "babel-preset-stage-0": "^6.3.13"
+  },
+  "dependencies": {}
+}
