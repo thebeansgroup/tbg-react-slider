@@ -6,9 +6,6 @@ import { Fade } from './Transitions';
 // This line ensures compatibility back to react 0.13
 const findDOMNode = ReactDOM.findDOMNode || React.findDOMNode;
 
-let delayInterval = null;
-let transitionTimeout = null;
-
 export default class Slider extends React.Component {
   constructor(props) {
     super(props);
@@ -21,6 +18,10 @@ export default class Slider extends React.Component {
         last: {},
       },
     };
+
+    this.delayInterval = null;
+    this.transitionTimeout = null;
+
     const Transition = this.props.transition;
     this.transition = new Transition;
   }
@@ -75,21 +76,21 @@ export default class Slider extends React.Component {
   }
 
   setActive(active) {
-    clearTimeout(transitionTimeout);
+    clearTimeout(this.transitionTimeout);
     this.setState({ active });
   }
 
 
   start() {
     this.stop();
-    delayInterval = setInterval(
+    this.delayInterval = setInterval(
       this.incrementActiveItem.bind(this),
       this.props.delay
     );
   }
 
   stop() {
-    clearInterval(delayInterval);
+    clearInterval(this.delayInterval);
   }
 
   next() {
@@ -113,7 +114,7 @@ export default class Slider extends React.Component {
   }
 
   endTransition() {
-    transitionTimeout = setTimeout(this.setActive.bind(this, false), 30);
+    this.transitionTimeout = setTimeout(this.setActive.bind(this, false), 30);
     this.props.onChange();
     this.props.onShow(this.state.activeItem);
   }
