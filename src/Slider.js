@@ -6,8 +6,8 @@ import { Fade } from './Transitions';
 // This line ensures compatibility back to react 0.13
 const findDOMNode = ReactDOM.findDOMNode || React.findDOMNode;
 
-const delayInterval = null;
-const transitionTimeout = null;
+let delayInterval = null;
+let transitionTimeout = null;
 
 export default class Slider extends React.Component {
   constructor(props) {
@@ -148,7 +148,7 @@ export default class Slider extends React.Component {
           <span
             onClick={ this.handleDotClick.bind(this, i) }
             key={`dot_${i}`}
-            className=`slider__dot ${mod}`
+            className={`slider__dot ${mod}`}
             style={{ color }}
           > { this.props.dot } </span>
         );
