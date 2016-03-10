@@ -9,7 +9,7 @@ The simplest way to use TBG-React-Slider is to grab it from NPM and include it i
 npm install tbg-react-slider --save
 ```
 
-### Importing
+### Imports
 
 TBG-React-Slider is packaged as an es6 module, so to import it use
 
@@ -72,7 +72,7 @@ arrow: {
 
 ### Styling
 
-TBG-React-Sliderdoesn't depend on any external styles for funtionality. However, it can be styled for UI and follows __BEM__ principles.
+TBG-React-Slider doesn't depend on any external styles for funtionality. However, it can be styled for UI and follows __BEM__ principles.
 
 The default Block class is `.slider` and can be changed via passing a `className` string as a component prop.
 
@@ -97,7 +97,7 @@ To access these, add a `ref` to the component `<Slider ref="slider" ...` and the
 
 [React Documentation](https://facebook.github.io/react/tips/expose-component-functions.html)
 
-Example using [react-hammerjs](https://github.com/JedWatson/react-hammerjs)
+__Example using [react-hammerjs](https://github.com/JedWatson/react-hammerjs)__
 ```
 import Slider, { Transitions } from 'tbg-react-slider';
 import Hammer from 'react-hammerjs';
@@ -125,7 +125,7 @@ class HammerJSExample extends React.Component {
 
 ## Transitions
 ### Pre-Packed Transitions
-`tbg-react-slider` comes with a couple of pre-packed transitions which can be imported and passed as props to the slider component.
+TBG-React-Slider comes with a couple of pre-packed transitions which can be imported and passed as props to the slider component.
 
 By default the `Fade` transition is used.
 
