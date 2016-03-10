@@ -1,5 +1,8 @@
 # TBG-React-Slider
+
 Pure JS React image slider component with no CSS dependencies
+
+[![npm version](https://badge.fury.io/js/tbg-react-slider.svg)](https://badge.fury.io/js/tbg-react-slider)
 
 ## Installation
 
