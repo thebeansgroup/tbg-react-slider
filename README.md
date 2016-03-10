@@ -70,11 +70,30 @@ arrow: {
 }
 ```
 
+### Styling
+
+TBG-React-Sliderdoesn't depend on any external styles for funtionality. However, it can be styled for UI and follows __BEM__ principles.
+
+The default Block style is `.slider` and can be changed via passing `className` as as prop.
+
+Available styles based on the default Block `.slider` class are
+```
+.slider {}
+.slider__wrapper {}
+.slider__view {}
+.slider__dots {}
+.slider__dot {}
+.slider__dot.is-active {}
+.slider__arrow {}
+.slider__arrow--right {}
+.slider__arrow--left {}
+```
+
 ### Exposed component functions
 
-`tbg-react-slider` has 3 exposed methods which can be used to navigate slides `nextSlide()`, `previousSlide()` & `gotoSlide(index)`
+TBG-React-Slider has some exposed component functions which can be used to navigate slides - `start()`, `stop()`, `next()`, `prev()` & `goto(index)`
 
-To access these, add a `ref` to the component `<Slider ref="slider" ...` and they can then be referenced via `this.refs.slider.nextSlide()`
+To access these, add a `ref` to the component `<Slider ref="slider" ...` and they can then be referenced via `this.refs.slider.next()`
 
 [React Documentation](https://facebook.github.io/react/tips/expose-component-functions.html)
 
