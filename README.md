@@ -74,9 +74,9 @@ arrow: {
 
 TBG-React-Sliderdoesn't depend on any external styles for funtionality. However, it can be styled for UI and follows __BEM__ principles.
 
-The default Block style is `.slider` and can be changed via passing `className` as as prop.
+The default Block class is `.slider` and can be changed via passing a `className` string as a component prop.
 
-Available styles based on the default Block `.slider` class are
+Available styles based on the default Block `.slider` class:
 ```
 .slider {}
 .slider__wrapper {}
