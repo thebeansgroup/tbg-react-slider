@@ -1,5 +1,5 @@
 # TBG-React-Slider
-React image slider component
+Pure JS React image slider component with no CSS dependencies
 
 ## Installation
 
