@@ -22,7 +22,6 @@ export default class Slider extends React.Component {
       },
     };
     const Transition = this.props.transition;
-
     this.transition = new Transition;
   }
 
@@ -39,6 +38,10 @@ export default class Slider extends React.Component {
       active: findDOMNode(this.refs.viewport_active).getBoundingClientRect(),
       last: findDOMNode(this.refs.viewport_last).getBoundingClientRect(),
     };
+  }
+
+  getDotActiveClass(i) {
+    return i === this.state.activeItem ? 'is-active' : '';
   }
 
   getActiveStyle() {
@@ -71,19 +74,14 @@ export default class Slider extends React.Component {
     return this.state.activeItem + direction;
   }
 
-
   setActive(active) {
+    clearTimeout(transitionTimeout);
     this.setState({ active });
   }
 
-  nextSlide() {
-    this.getNextItem('right');
-  }
-  previousSlide() {
-    this.getNextItem('left');
-  }
 
   start() {
+    this.stop();
     delayInterval = setInterval(
       this.incrementActiveItem.bind(this),
       this.props.delay
@@ -94,28 +92,44 @@ export default class Slider extends React.Component {
     clearInterval(delayInterval);
   }
 
+  next() {
+    this.handleArrowClick('right');
+  }
+
+  prev() {
+    this.handleArrowClick('left');
+  }
+
+  goto(index) {
+    this.stop();
+    this.findItemDirection(index);
+    this.gotoSlide(index);
+    if (this.props.autoplay) { this.start(); }
+  }
+
+  findItemDirection(index) {
+    const direction = index < this.state.activeItem ? -1 : 1;
+    this.setState({ direction });
+  }
+
   endTransition() {
     transitionTimeout = setTimeout(this.setActive.bind(this, false), 30);
     this.props.onChange();
     this.props.onShow(this.state.activeItem);
   }
 
-
-  // refactor
   incrementActiveItem(dir = this.props.direction) {
     let activeItem = this.getNextItem(dir);
-
     if (activeItem > this.props.children.length - 1) {
       activeItem = 0;
     }
     if (activeItem < 0) {
       activeItem = this.props.children.length - 1;
     }
-
-    this.gotoNextSlide(activeItem);
+    this.gotoSlide(activeItem);
   }
 
-  gotoNextSlide(activeItem) {
+  gotoSlide(activeItem) {
     const viewport = this.getViewportDimensions();
 
     this.setActive(true);
@@ -132,27 +146,21 @@ export default class Slider extends React.Component {
     if (this.props.autoplay) { this.start(); }
   }
 
-  handleDotClick(index) {
-    this.stop();
-    this.gotoNextSlide(index);
-    if (this.props.autoplay) { this.start(); }
+
+  renderDot(child, i) {
+    return (
+      <span
+        onClick={ this.goto.bind(this, i) }
+        key={`dot_${i}`}
+        className={`${this.props.className}__dot ${this.getDotActiveClass(i)}`}
+      > { this.props.dot } </span>
+    );
   }
 
-  // this is all sorts of dodge
   renderDots() {
     if (!this.props.dots) { return null; }
     return (
-      this.props.children.map((child, i) => {
-        let mod = i === this.state.activeItem ? '' : 'slider__dot--active';
-        return (
-          <span
-            onClick={ this.handleDotClick.bind(this, i) }
-            key={`dot_${i}`}
-            className={`slider__dot ${mod}`}
-            style={{ color }}
-          > { this.props.dot } </span>
-        );
-      })
+      this.props.children.map(this.renderDot.bind(this))
     );
   }
 
@@ -161,8 +169,8 @@ export default class Slider extends React.Component {
     return (
       <div
         onClick={ this.handleArrowClick.bind(this, dir) }
-        className={`slider__arrow slider__arrow--${dir}`}
         style={ style[`nav__${dir}`] }
+        className={`${this.props.className}__arrow ${this.props.className}__arrow--${dir}`}
       >
         { this.props.arrow[dir] }
       </div>
@@ -172,8 +180,8 @@ export default class Slider extends React.Component {
     return (
       <section
         ref="viewport_last"
-        className="slider__view"
         style={ this.getLastStyle() }
+        className={`${this.props.className}__view`}
       >
         { this.props.children[this.state.lastItem] }
       </section>
@@ -184,8 +192,8 @@ export default class Slider extends React.Component {
     return (
       <section
         ref="viewport_active"
-        className="slider__view"
         style={ this.getActiveStyle() }
+        className={`${this.props.className}__view`}
       >
         { this.props.children[this.state.activeItem] }
       </section>
@@ -195,13 +203,13 @@ export default class Slider extends React.Component {
   render() {
     return (
       <div className={ this.props.className } style={ style.slider }>
-        <section style={style.wrapper}>
+        <section className={`${this.props.className}__wrapper`} style={style.wrapper}>
           { this.renderActiveView() }
           { this.renderLastView() }
         </section>
         { this.renderNavArrow('left') }
         { this.renderNavArrow('right') }
-        <section className="slider__dots" style={ style.dots }>
+        <section className={`${this.props.className}__dots`} style={ style.dots }>
           { this.renderDots() }
         </section>
       </div>
@@ -211,38 +219,41 @@ export default class Slider extends React.Component {
 
 
 Slider.propTypes = {
+  arrows: React.PropTypes.bool,
+  autoplay: React.PropTypes.bool,
+  children: React.PropTypes.any.isRequired,
+  className: React.PropTypes.string,
+  delay: React.PropTypes.number,
+  direction: React.PropTypes.string,
+  dots: React.PropTypes.bool,
+  initialSlide: React.PropTypes.number,
+  transition: React.PropTypes.any,
+  transitionTime: React.PropTypes.number,
+
   onChange: React.PropTypes.func,
   onShow: React.PropTypes.func,
-  initialSlide: React.PropTypes.number,
-  autoplay: React.PropTypes.bool,
-  arrows: React.PropTypes.bool,
-  dots: React.PropTypes.bool,
-  delay: React.PropTypes.number,
-  transitionTime: React.PropTypes.number,
-  direction: React.PropTypes.string,
-  className: React.PropTypes.string,
-  transitionType: React.PropTypes.string,
-  children: React.PropTypes.any.isRequired,
+
   dot: React.PropTypes.element,
   arrow: React.PropTypes.object,
-  transition: React.PropTypes.any,
 };
 
 Slider.defaultProps = {
+  arrows: true,
+  autoplay: true,
+  className: 'slider',
+  delay: 5000,
+  direction: 'right',
+  dots: false,
+  initialSlide: 0,
+  transition: Fade,
+  transitionTime: 0.5,
+
   onChange: () => { },
   onShow: () => { },
-  delay: 5000,
-  autoplay: true,
-  initialSlide: 0,
-  arrows: true,
-  dots: true,
-  direction: 'right',
-  transitionTime: 0.5,
-  className: 'slider',
+
   dot: <span>&#8226;</span>,
   arrow: {
     left: <span>&#8249;</span>,
     right: <span>&#8250;</span>,
   },
-  transition: Fade,
 };
