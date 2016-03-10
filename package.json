@@ -1,6 +1,6 @@
 {
   "name": "tbg-react-slider",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "React slider component",
   "main": "lib/index.js",
   "scripts": {
@@ -8,13 +8,14 @@
   },
   "keywords": [
     "react",
-    "react-component"
+    "react-component",
+    "carousel",
+    "image-slider"
   ],
   "author": "Sam Ternent",
   "license": "ISC",
   "peerDependencies": {
-    "react": "^0.14.0",
-    "react-dom": "^0.14.0"
+     "react": ">=0.13.0 <=0.14.7"
   },
   "devDependencies": {
     "babel-cli": "^6.6.5",

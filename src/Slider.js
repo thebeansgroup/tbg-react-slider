@@ -3,7 +3,11 @@ import ReactDOM from 'react-dom';
 import style from './Style';
 import { Fade } from './Transitions';
 
+// This line ensures compatibility back to react 0.13
 const findDOMNode = ReactDOM.findDOMNode || React.findDOMNode;
+
+const = delayInterval = null;
+const = transitionTimeout = null;
 
 export default class Slider extends React.Component {
   constructor(props) {
@@ -20,8 +24,6 @@ export default class Slider extends React.Component {
     const Transition = this.props.transition;
 
     this.transition = new Transition;
-    this.delayInterval = null;
-    this.transitionTimeout = null;
   }
 
   componentDidMount() {
@@ -82,18 +84,18 @@ export default class Slider extends React.Component {
   }
 
   start() {
-    this.delayInterval = setInterval(
+    delayInterval = setInterval(
       this.incrementActiveItem.bind(this),
       this.props.delay
     );
   }
 
   stop() {
-    clearInterval(this.delayInterval);
+    clearInterval(delayInterval);
   }
 
   endTransition() {
-    this.transitionTimeout = setTimeout(this.setActive.bind(this, false), 30);
+    transitionTimeout = setTimeout(this.setActive.bind(this, false), 30);
     this.props.onChange();
     this.props.onShow(this.state.activeItem);
   }
@@ -138,27 +140,24 @@ export default class Slider extends React.Component {
 
   // this is all sorts of dodge
   renderDots() {
-    if (!this.props.showDots) { return null; }
+    if (!this.props.dots) { return null; }
     return (
       this.props.children.map((child, i) => {
-        let color = '#ccc';
-        if (i === this.state.activeItem) { color = '#333'; }
+        let mod = i === this.state.activeItem ? '' : 'slider__dot--active';
         return (
           <span
             onClick={ this.handleDotClick.bind(this, i) }
             key={`dot_${i}`}
-            className="slider__dot"
+            className=`slider__dot ${mod}`
             style={{ color }}
-          >
-            { this.props.dot }
-          </span>
+          > { this.props.dot } </span>
         );
       })
     );
   }
 
   renderNavArrow(dir) {
-    if (!this.props.showArrows) { return null; }
+    if (!this.props.arrows) { return null; }
     return (
       <div
         onClick={ this.handleArrowClick.bind(this, dir) }
@@ -216,8 +215,8 @@ Slider.propTypes = {
   onShow: React.PropTypes.func,
   initialSlide: React.PropTypes.number,
   autoplay: React.PropTypes.bool,
-  showArrows: React.PropTypes.bool,
-  showDots: React.PropTypes.bool,
+  arrows: React.PropTypes.bool,
+  dots: React.PropTypes.bool,
   delay: React.PropTypes.number,
   transitionTime: React.PropTypes.number,
   direction: React.PropTypes.string,
@@ -235,8 +234,8 @@ Slider.defaultProps = {
   delay: 5000,
   autoplay: true,
   initialSlide: 0,
-  showArrows: true,
-  showDots: true,
+  arrows: true,
+  dots: true,
   direction: 'right',
   transitionTime: 0.5,
   className: 'slider',
