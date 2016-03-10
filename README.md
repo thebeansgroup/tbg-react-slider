@@ -1,3 +1,75 @@
+# TBG-React-Slider
+React image slider component
+
+## Installation
+
+### Installing
+The simplest way to use TBG-React-Slider is to grab it from NPM and include it in your build process.
+```
+npm install tbg-react-slider --save
+```
+
+### Importing
+
+TBG-React-Slider is packaged as an es6 module, so to import it use
+
+```
+import Slider from 'tbg-react-slider'
+```
+
+or to use it as a CommonJS module:
+```
+const TBGReactSlider = require('tbg-react-slider').default
+```
+
+## Usage
+
+### Basic usage
+
+To use TBG-React-Slider at its most basic form
+
+```
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+import Slider from 'tbg-react-slider';
+
+ReactDOM.render(
+  <Slider>
+    <div> Slide 1 </div>
+    <div> Slide 2 </div>
+    <div> Slide 3 </div>
+    <div> Slide 4 </div>
+  </Slider>
+  ,
+  document.getElementById('carousel')
+);
+```
+### Props
+
+#### Default Props
+
+```
+className: 'slider'
+arrows: true
+dots: true
+delay: 5000
+autoplay: true
+initialSlide: 0
+direction: 'right'
+transitionTime: 0.5
+transition: Fade
+
+onChange: () => { }
+onShow: () => { }
+
+dot: <span>&#8226;</span>
+arrow: {
+  left: <span>&#8249;</span>,
+  right: <span>&#8250;</span>,
+}
+```
+
 ### Exposed component functions
 
 `tbg-react-slider` has 3 exposed methods which can be used to navigate slides `nextSlide()`, `previousSlide()` & `gotoSlide(index)`
