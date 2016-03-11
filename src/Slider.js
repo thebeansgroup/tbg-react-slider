@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Touch from './Touch';
 import style from './Style';
 import { Fade } from './Transitions';
 
@@ -21,9 +22,6 @@ export default class Slider extends React.Component {
 
     this.delayInterval = null;
     this.transitionTimeout = null;
-
-    const Transition = this.props.transition;
-    this.transition = new Transition;
   }
 
   componentDidMount() {
@@ -48,23 +46,23 @@ export default class Slider extends React.Component {
   getActiveStyle() {
     if (!this.state.active) {
       return Object.assign(
-        this.transition.end(this.state.direction, this.state.viewport.active),
-        this.transition.transition(this.props.transitionTime)
+        this.props.transition.end(this.state.direction, this.state.viewport.active),
+        this.props.transition.transition(this.props.transitionTime)
       );
     }
-    return this.transition.start(this.state.direction, this.state.viewport.active);
+    return this.props.transition.start(this.state.direction, this.state.viewport.active);
   }
 
   getLastStyle() {
     if (!this.state.active) {
       return Object.assign(
-        this.transition.prevEnd(this.state.direction, this.state.viewport.last),
-        this.transition.transition(this.props.transitionTime),
+        this.props.transition.prevEnd(this.state.direction, this.state.viewport.last),
+        this.props.transition.transition(this.props.transitionTime),
         style.lastView
       );
     }
     return Object.assign(
-      this.transition.prevStart(this.state.direction, this.state.viewport.last),
+      this.props.transition.prevStart(this.state.direction, this.state.viewport.last),
       style.lastView
     );
   }
@@ -201,13 +199,33 @@ export default class Slider extends React.Component {
     );
   }
 
+  renderSlideView() {
+    return (
+      <section className={`${this.props.className}__wrapper`} style={style.wrapper}>
+        { this.renderActiveView() }
+        { this.renderLastView() }
+      </section>
+    );
+  }
+
+  renderSlides() {
+    if (!this.props.touchGestures) {
+      return this.renderSlideView();
+    }
+    return (
+      <Touch
+        onSwipeLeft={ this.next.bind(this) }
+        onSwipeRight={ this.prev.bind(this) }
+      >
+        { this.renderSlideView() }
+      </Touch>
+    );
+  }
+
   render() {
     return (
       <div className={ this.props.className } style={ style.slider }>
-        <section className={`${this.props.className}__wrapper`} style={style.wrapper}>
-          { this.renderActiveView() }
-          { this.renderLastView() }
-        </section>
+        { this.renderSlides() }
         { this.renderNavArrow('left') }
         { this.renderNavArrow('right') }
         <section className={`${this.props.className}__dots`} style={ style.dots }>
@@ -228,6 +246,7 @@ Slider.propTypes = {
   direction: React.PropTypes.string,
   dots: React.PropTypes.bool,
   initialSlide: React.PropTypes.number,
+  touchGestures: React.PropTypes.bool,
   transition: React.PropTypes.any,
   transitionTime: React.PropTypes.number,
 
@@ -246,6 +265,7 @@ Slider.defaultProps = {
   direction: 'right',
   dots: false,
   initialSlide: 0,
+  touchGestures: true,
   transition: Fade,
   transitionTime: 0.5,
 
