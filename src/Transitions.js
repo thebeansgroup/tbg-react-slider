@@ -1,3 +1,5 @@
+import assign from 'object-assign';
+
 export const Base = {
   start() { return {}; },
   end() { return {}; },
@@ -6,7 +8,7 @@ export const Base = {
   transition() { return {}; },
 };
 
-export const create = (transition) => Object.assign({}, Base, transition);
+export const create = (transition) => assign({}, Base, transition);
 
 // Basic Fade transition
 export const Fade = create({

@@ -99,7 +99,8 @@ TBG-React-Slider has some exposed component functions which can be used to navig
 To access these, add a `ref` to the component `<Slider ref="slider" ...` and they can then be referenced via `this.refs.slider.next()`
 
 [React Documentation](https://facebook.github.io/react/tips/expose-component-functions.html)
-
+### Outdated - I've added touch capabilities to the slider component...
+#### Updated README to follow
 __Example using [react-hammerjs](https://github.com/JedWatson/react-hammerjs)__
 ```
 import Slider, { Transitions } from 'tbg-react-slider';
@@ -111,9 +112,9 @@ class HammerJSExample extends React.Component {
     if (dir === 2) { this.refs.slider.nextSlide(); }
     if (dir === 4) { this.refs.slider.previousSlide(); }
   }
-  
+
   ...
-  
+
   render() {
     return (
       <Hammer onSwipe={ this.handleSwipe.bind(this) }>
@@ -144,12 +145,11 @@ import Slider, { Transitions } from 'tbg-react-slider';
 Packed transitions include: `Fade`, `Slide`, `SlideDown`
 
 ### Custom Transitions
-To create a custom transition you can `extend` from `Transitions.Base`
+To create a custom transition you can `create` method in `Transitions`
 ```
 import Slider, { Transitions } from 'tbg-react-slider';
 
-// Spin Transition
-class Spin extends Transitions.Base {
+const Spin = Transitions.create({
   start(dir, view) {
     return {
       transform: `
@@ -157,18 +157,18 @@ class Spin extends Transitions.Base {
         rotateZ(360deg)
       `,
     };
-  }
+  },
   end() {
     return {
       transform: 'translateX(0) rotateZ(0)',
     };
-  }
+  },
   transition(time) {
     return {
       transition: `transform ${time}s`,
     };
-  }
-}
+  },
+});
 
 
 
