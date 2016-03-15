@@ -180,7 +180,7 @@ export default class Slider extends React.Component {
       <section
         ref="viewport_last"
         style={ this.getLastStyle() }
-        className={`${this.props.className}__view`}
+        className={`${this.props.className}__view ${this.props.className}__view--last`}
       >
         { this.props.children[this.state.lastItem] }
       </section>
@@ -192,7 +192,7 @@ export default class Slider extends React.Component {
       <section
         ref="viewport_active"
         style={ this.getActiveStyle() }
-        className={`${this.props.className}__view`}
+        className={`${this.props.className}__view ${this.props.className}__view--active`}
       >
         { this.props.children[this.state.activeItem] }
       </section>
@@ -201,7 +201,11 @@ export default class Slider extends React.Component {
 
   renderSlideView() {
     return (
-      <section className={`${this.props.className}__wrapper`} style={style.wrapper}>
+      <section
+        className={`${this.props.className}__wrapper`}
+        style={style.wrapper}
+        data-current-index={this.state.activeItem}
+      >
         { this.renderActiveView() }
         { this.renderLastView() }
       </section>
