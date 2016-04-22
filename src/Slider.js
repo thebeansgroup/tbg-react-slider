@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Touch from './Touch';
 import style from './Style';
 import { Fade } from './Transitions';
+import assign from 'object-assign';
 
 // This line ensures compatibility back to react 0.13
 const findDOMNode = ReactDOM.findDOMNode || React.findDOMNode;
@@ -45,7 +46,7 @@ export default class Slider extends React.Component {
 
   getActiveStyle() {
     if (!this.state.active) {
-      return Object.assign(
+      return assign(
         this.props.transition.end(this.state.direction, this.state.viewport.active),
         this.props.transition.transition(this.props.transitionTime)
       );
@@ -55,13 +56,13 @@ export default class Slider extends React.Component {
 
   getLastStyle() {
     if (!this.state.active) {
-      return Object.assign(
+      return assign(
         this.props.transition.prevEnd(this.state.direction, this.state.viewport.last),
         this.props.transition.transition(this.props.transitionTime),
         style.lastView
       );
     }
-    return Object.assign(
+    return assign(
       this.props.transition.prevStart(this.state.direction, this.state.viewport.last),
       style.lastView
     );
