@@ -1,6 +1,6 @@
 {
   "name": "tbg-react-slider",
-  "version": "0.1.4",
+  "version": "1.0.0",
   "description": "React slider component",
   "main": "lib/index.js",
   "scripts": {
