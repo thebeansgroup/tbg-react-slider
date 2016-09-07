@@ -75,7 +75,7 @@ arrow: {
 
 ### Styling
 
-TBG-React-Slider doesn't depend on any external styles for funtionality. However, it can be styled for UI and follows __BEM__ principles.
+TBG-React-Slider doesn't depend on any external styles for functionality. However, it can be styled for UI and follows __BEM__ principles.
 
 The default Block class is `.slider` and can be changed via passing a `className` string as a component prop.
 
@@ -87,6 +87,9 @@ Available styles based on the default Block `.slider` class:
 .slider__dots {}
 .slider__dot {}
 .slider__dot.is-active {}
+.slider__arrow__wrapper {}
+.slider__arrow__wrapper--right {}
+.slider__arrow__wrapper--left {}
 .slider__arrow {}
 .slider__arrow--right {}
 .slider__arrow--left {}

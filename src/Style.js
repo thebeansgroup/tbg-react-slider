@@ -6,7 +6,7 @@ export default {
   wrapper: {
     overflow: 'hidden',
     position: 'relative',
-    display: 'inline-block',
+    display: 'block',
   },
   lastView: {
     position: 'absolute',

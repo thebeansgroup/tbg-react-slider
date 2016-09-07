@@ -170,9 +170,13 @@ export default class Slider extends React.Component {
       <div
         onClick={ this.handleArrowClick.bind(this, dir) }
         style={ style[`nav__${dir}`] }
-        className={`${this.props.className}__arrow ${this.props.className}__arrow--${dir}`}
+        className={`${this.props.className}__arrow__wrapper ${this.props.className}__arrow__wrapper--${dir}`}
       >
-        { this.props.arrow[dir] }
+        <div
+          className={`${this.props.className}__arrow ${this.props.className}__arrow--${dir}`}
+        >
+          { this.props.arrow[dir] }
+        </div>
       </div>
     );
   }
