@@ -33,6 +33,10 @@ export default class Slider extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    this.stop();
+  }
+
   getViewportDimensions() {
     return {
       active: findDOMNode(this.refs.viewport_active).getBoundingClientRect(),
