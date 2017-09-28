@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default class Touch extends React.Component {
   constructor(props) {
@@ -92,14 +93,14 @@ export default class Touch extends React.Component {
 }
 
 Touch.propTypes = {
-  children: React.PropTypes.any.isRequired,
-  swipeThreshold: React.PropTypes.number,
-  onSwipeRight: React.PropTypes.func,
-  onSwipeLeft: React.PropTypes.func,
-  onSwipeUp: React.PropTypes.func,
-  onSwipeDown: React.PropTypes.func,
-  onDrag: React.PropTypes.func,
-  onTouch: React.PropTypes.func,
+  children: PropTypes.any.isRequired,
+  swipeThreshold: PropTypes.number,
+  onSwipeRight: PropTypes.func,
+  onSwipeLeft: PropTypes.func,
+  onSwipeUp: PropTypes.func,
+  onSwipeDown: PropTypes.func,
+  onDrag: PropTypes.func,
+  onTouch: PropTypes.func,
 };
 Touch.defaultProps = {
   swipeThreshold: 40,

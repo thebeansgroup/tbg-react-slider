@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
+import assign from 'object-assign';
+
 import Touch from './Touch';
 import style from './Style';
 import { Fade } from './Transitions';
-import assign from 'object-assign';
 
 // This line ensures compatibility back to react 0.13
 const findDOMNode = ReactDOM.findDOMNode || React.findDOMNode;
@@ -247,23 +249,23 @@ export default class Slider extends React.Component {
 
 
 Slider.propTypes = {
-  arrows: React.PropTypes.bool,
-  autoplay: React.PropTypes.bool,
-  children: React.PropTypes.any.isRequired,
-  className: React.PropTypes.string,
-  delay: React.PropTypes.number,
-  direction: React.PropTypes.string,
-  dots: React.PropTypes.bool,
-  initialSlide: React.PropTypes.number,
-  touchGestures: React.PropTypes.bool,
-  transition: React.PropTypes.any,
-  transitionTime: React.PropTypes.number,
+  arrows: PropTypes.bool,
+  autoplay: PropTypes.bool,
+  children: PropTypes.any.isRequired,
+  className: PropTypes.string,
+  delay: PropTypes.number,
+  direction: PropTypes.string,
+  dots: PropTypes.bool,
+  initialSlide: PropTypes.number,
+  touchGestures: PropTypes.bool,
+  transition: PropTypes.any,
+  transitionTime: PropTypes.number,
 
-  onChange: React.PropTypes.func,
-  onShow: React.PropTypes.func,
+  onChange: PropTypes.func,
+  onShow: PropTypes.func,
 
-  dot: React.PropTypes.element,
-  arrow: React.PropTypes.object,
+  dot: PropTypes.element,
+  arrow: PropTypes.object,
 };
 
 Slider.defaultProps = {
